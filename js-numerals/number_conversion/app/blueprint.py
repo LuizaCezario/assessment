@@ -1,23 +1,22 @@
 from flask import Blueprint, render_template, request
 import numpy
-import requests, re
-import geopy.distance 
+import requests, re 
 
-calculate_route = Blueprint('calculate_route', __name__, static_folder='static', template_folder='coordinates/templates')
+calculate_number = Blueprint('calculate_number', __name__, static_folder='static', template_folder='numbers/templates')
 
 
-@calculate_route.route('/', methods=['POST', 'GET'])
+@calculate_number.route('/', methods=['POST', 'GET'])
 def api():
     # Method to render the html page
     if request.method == 'GET':
         return render_template("index.html")
     else:
-        num1 = request.form['coordinates']
-        result = calculate_distance(num1)
+        num1 = request.form['numbers']
+        result = convert_number(num1)
         return render_template('index.html', result=result)
 
 
-def calculate_distance(number):
+def convert_number(number):
     number = number.strip(' ')
     number = list(number)
     print(number)
